@@ -1,0 +1,21 @@
+{
+    "cluster_name": "ETL-ML-Cluster",
+    "spark_version": "12.2.x-scala2.12",
+    "node_type_id": "Standard_DS3_v2",
+    "autoscale": {
+      "min_workers": 2,
+      "max_workers": 8
+    },
+    "autotermination_minutes": 60,
+    "spark_conf": {
+      "spark.databricks.delta.optimizeWrite.enabled": "true",
+      "spark.databricks.io.cache.enabled": "true"
+    },
+    "aws_attributes": {
+      "availability": "ON_DEMAND"
+    },
+    "custom_tags": {
+      "project": "Databricks_ETL_ML",
+      "owner": "data_engineering_team"
+    }
+  }

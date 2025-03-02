@@ -1,0 +1,24 @@
+import pickle
+from pyspark.sql import SparkSession
+from pyspark.ml.classification import LogisticRegression
+from pyspark.ml.feature import VectorAssembler
+
+# Initialize Spark session
+spark = SparkSession.builder.appName("SaveModel").getOrCreate()
+
+# Load feature dataset
+df = spark.read.format("delta").load("/mnt/delta/features/")
+
+# Assemble features
+assembler = VectorAssembler(inputCols=["count"], outputCol="features")
+df_transformed = assembler.transform(df)
+
+# Train model
+lr = LogisticRegression(featuresCol="features", labelCol="label")
+model = lr.fit(df_transformed)
+
+# Save model to pickle format
+with open("/dbfs/mnt/models/latest_model.pkl", "wb") as f:
+    pickle.dump(model, f)
+
+print("Model saved as latest_model.pkl")

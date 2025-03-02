@@ -1,0 +1,23 @@
+{
+    "name": "ETL Pipeline",
+    "tasks": [
+      {
+        "task_key": "bronze_to_silver",
+        "notebook_task": {
+          "notebook_path": "/Workspace/notebooks/1_ingest_bronze"
+        }
+      },
+      {
+        "task_key": "silver_to_gold",
+        "notebook_task": {
+          "notebook_path": "/Workspace/notebooks/2_transform_silver"
+        },
+        "depends_on": [
+          {
+            "task_key": "bronze_to_silver"
+          }
+        ]
+      }
+    ]
+  }
+  

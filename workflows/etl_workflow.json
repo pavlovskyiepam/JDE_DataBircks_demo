@@ -1,0 +1,56 @@
+{
+    "name": "ETL Workflow",
+    "tasks": [
+      {
+        "task_key": "ingest_bronze",
+        "notebook_task": {
+          "notebook_path": "/Workspace/notebooks/1_ingest_bronze"
+        }
+      },
+      {
+        "task_key": "transform_silver",
+        "notebook_task": {
+          "notebook_path": "/Workspace/notebooks/2_transform_silver"
+        },
+        "depends_on": [
+          {
+            "task_key": "ingest_bronze"
+          }
+        ]
+      },
+      {
+        "task_key": "feature_engineering",
+        "notebook_task": {
+          "notebook_path": "/Workspace/notebooks/3_feature_engineering"
+        },
+        "depends_on": [
+          {
+            "task_key": "transform_silver"
+          }
+        ]
+      },
+      {
+        "task_key": "train_model",
+        "notebook_task": {
+          "notebook_path": "/Workspace/notebooks/4_train_model"
+        },
+        "depends_on": [
+          {
+            "task_key": "feature_engineering"
+          }
+        ]
+      },
+      {
+        "task_key": "model_inference",
+        "notebook_task": {
+          "notebook_path": "/Workspace/notebooks/5_model_inference"
+        },
+        "depends_on": [
+          {
+            "task_key": "train_model"
+          }
+        ]
+      }
+    ]
+  }
+  
